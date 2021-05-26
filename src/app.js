@@ -3,6 +3,7 @@ const cors = require("cors");
 const kdaStudents = require("./mock-db/students");
 const checkStudentExistence = require("./middlewares/check.student");
 const validateBody = require("./middlewares/validate.body");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 
@@ -33,6 +34,14 @@ app.put(`${baseURI}/:id`, [checkStudentExistence, validateBody], (req, res) => {
   res
     .status(200)
     .json({ message: `resource updated successfully`, result: student });
+});
+
+app.post(`${baseURI}/`, validateBody, (req, res) => {
+  const student = { id: uuidv4(), nom: req.body.nom, prenom: req.body.prenom };
+  kdaStudents.push(student);
+  res
+    .status(200)
+    .json({ message: `resource created successfully`, result: student });
 });
 
 const PORT = process.env.PORT || 8000;
