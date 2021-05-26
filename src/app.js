@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const kdaStudents = require("./mock-db/students");
+const checkStudentExistence = require("./middlewares/check.student");
 
 const app = express();
 
@@ -11,6 +12,11 @@ const baseURI = "/api/students";
 
 app.get(`${baseURI}/`, (req, res) => {
   res.send(kdaStudents);
+});
+
+app.get(`${baseURI}/:id`, checkStudentExistence, (req, res) => {
+  const student = req.student;
+  res.send(student);
 });
 
 const PORT = process.env.PORT || 8000;
