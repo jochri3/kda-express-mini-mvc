@@ -19,6 +19,12 @@ app.get(`${baseURI}/:id`, checkStudentExistence, (req, res) => {
   res.send(student);
 });
 
+app.delete(`${baseURI}/:id`, checkStudentExistence, (req, res) => {
+  const student = req.student;
+  kdaStudents.splice(kdaStudents.indexOf(student), 1);
+  res.status(200).json({ message: `resource deleted successfully` });
+});
+
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
