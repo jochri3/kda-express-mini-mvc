@@ -25,6 +25,15 @@ app.delete(`${baseURI}/:id`, checkStudentExistence, (req, res) => {
   res.status(200).json({ message: `resource deleted successfully` });
 });
 
+app.put(`${baseURI}/:id`, checkStudentExistence, (req, res) => {
+  const student = req.student;
+  student.nom = req.body.nom;
+  student.prenom = req.body.prenom;
+  res
+    .status(200)
+    .json({ message: `resource updated successfully`, result: student });
+});
+
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
