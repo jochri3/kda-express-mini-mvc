@@ -1,14 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-const kdaStudents = require("./mock-db/students");
-const checkStudentExistence = require("./middlewares/check.student");
-const validateBody = require("./middlewares/validate.body");
-const { v4: uuidv4 } = require("uuid");
+const studentRouter = require("./ressources/student/student.routes");
+const path = require("./config/paths");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(path.studentsBaseURI, studentRouter);
 
 const baseURI = "/api/students";
 
