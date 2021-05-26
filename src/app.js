@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const kdaStudents = require("./mock-db/students");
 const checkStudentExistence = require("./middlewares/check.student");
+const validateBody = require("./middlewares/validate.body");
 
 const app = express();
 
@@ -25,7 +26,7 @@ app.delete(`${baseURI}/:id`, checkStudentExistence, (req, res) => {
   res.status(200).json({ message: `resource deleted successfully` });
 });
 
-app.put(`${baseURI}/:id`, checkStudentExistence, (req, res) => {
+app.put(`${baseURI}/:id`, [checkStudentExistence, validateBody], (req, res) => {
   const student = req.student;
   student.nom = req.body.nom;
   student.prenom = req.body.prenom;
