@@ -1,5 +1,7 @@
 const kdaStudents = require("../../mock-db/students");
-//const uuidv4 = require('uuidv4');
+const { v4: uuidv4 } = require("uuid");
+
+
 function getStudents(req, res) {
   res.send(kdaStudents);
 }
@@ -24,13 +26,13 @@ function updateStudent(req, res) {
     .json({ message: `resource updated successfully`, result: student });
 }
 
-// function createStudent(req, res) {
-//   const student = { id: uuidv4, nom: req.body.nom, prenom: req.body.prenom };
-//   kdaStudents.push(student);
-//   res
-//     .status(200)
-//     .json({ message: `resource created successfully`, result: student });
-// }
+function createStudent(req, res) {
+  const student = { id: uuidv4, nom: req.body.nom, prenom: req.body.prenom };
+  kdaStudents.push(student);
+  res
+    .status(200)
+    .json({ message: `resource created successfully`, result: student });
+}
 
 module.exports = {
   getStudents,
