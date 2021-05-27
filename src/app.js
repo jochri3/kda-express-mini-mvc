@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const studentRouter = require("./ressources/student/student.routes");
 const path = require("./config/paths");
+const studentController = require("./ressources/student/student.controller");
+const checkStudentExistence = require("./middlewares/check.student");
+const validateBody = require("./middlewares/validate.body");
 
 const app = express();
 
@@ -11,37 +14,27 @@ app.use(path.studentsBaseURI, studentRouter);
 
 const baseURI = "/api/students";
 
-app.get(`${baseURI}/`, (req, res) => {
-  res.send(kdaStudents);
-});
+app.get(`${baseURI}/`, studentController.getStudents);
 
-app.get(`${baseURI}/:id`, checkStudentExistence, (req, res) => {
-  const student = req.student;
-  res.send(student);
-});
+app.get(
+  `${baseURI}/:id`,
+  checkStudentExistence,
+  studentController.getStudentById
+);
 
-app.delete(`${baseURI}/:id`, checkStudentExistence, (req, res) => {
-  const student = req.student;
-  kdaStudents.splice(kdaStudents.indexOf(student), 1);
-  res.status(200).json({ message: `resource deleted successfully` });
-});
+app.delete(
+  `${baseURI}/:id`,
+  checkStudentExistence,
+  studentController.deleteStudent
+);
 
-app.put(`${baseURI}/:id`, [checkStudentExistence, validateBody], (req, res) => {
-  const student = req.student;
-  student.nom = req.body.nom;
-  student.prenom = req.body.prenom;
-  res
-    .status(200)
-    .json({ message: `resource updated successfully`, result: student });
-});
+app.put(
+  `${baseURI}/:id`,
+  [checkStudentExistence, validateBody],
+  studentController.updateStudent
+);
 
-app.post(`${baseURI}/`, validateBody, (req, res) => {
-  const student = { id: uuidv4(), nom: req.body.nom, prenom: req.body.prenom };
-  kdaStudents.push(student);
-  res
-    .status(200)
-    .json({ message: `resource created successfully`, result: student });
-});
+app.post(`${baseURI}/`, validateBody, studentController.createStudent);
 
 const PORT = process.env.PORT || 8000;
 
