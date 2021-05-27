@@ -9,11 +9,11 @@ function getStudentById(req, res) {
   res.send(student);
 }
 
-// function deleteStudent(req, res) {
-//   const student = req.student;
-//   kdaStudents.splice(kdaStudents.indexOf(student), 1);
-//   res.status(200).json({ message: `resource deleted successfully` });
-// }
+function deleteStudent(req, res) {
+  const student = req.student;
+  kdaStudents.splice(kdaStudents.indexOf(student), 1);
+  res.status(200).json({ message: `resource deleted successfully` });
+}
 
 // function updateStudent(req, res) {
 //   const student = req.student;
