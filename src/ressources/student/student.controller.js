@@ -4,10 +4,10 @@ function getStudents(req, res) {
   res.send(kdaStudents);
 }
 
-// function getStudentById(req, res) {
-//   const student = req.student;
-//   res.send(student);
-// }
+function getStudentById(req, res) {
+  const student = req.student;
+  res.send(student);
+}
 
 // function deleteStudent(req, res) {
 //   const student = req.student;
