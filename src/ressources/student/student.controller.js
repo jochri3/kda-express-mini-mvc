@@ -15,14 +15,14 @@ function deleteStudent(req, res) {
   res.status(200).json({ message: `resource deleted successfully` });
 }
 
-// function updateStudent(req, res) {
-//   const student = req.student;
-//   student.nom = req.body.nom;
-//   student.prenom = req.body.prenom;
-//   res
-//     .status(200)
-//     .json({ message: `resource updated successfully`, result: student });
-// }
+function updateStudent(req, res) {
+  const student = req.student;
+  student.nom = req.body.nom;
+  student.prenom = req.body.prenom;
+  res
+    .status(200)
+    .json({ message: `resource updated successfully`, result: student });
+}
 
 // function createStudent(req, res) {
 //   const student = { id: uuidv4, nom: req.body.nom, prenom: req.body.prenom };
